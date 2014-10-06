@@ -1,0 +1,11 @@
+Package: CNVRd2 permutation
+Type: Package
+Title: CNVRd2 permutation  
+Version: 1.0
+Date: 2014-06-28
+Author: James Boocock <smilefreak@gmx.com>
+Maintainer: James Boocock <smilefreak@gmx.com>
+Description: Contains some functions to perform a permutation test for segmentation results from DNACopy, which utilises a circular binary segmentation algorithm.
+License: MIT
+Depends: Rcpp (>= 0.10.3)
+LinkingTo: Rcpp
