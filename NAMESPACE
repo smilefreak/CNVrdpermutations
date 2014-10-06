@@ -1,2 +1,2 @@
-useDynLib(generateSubRegions)
+useDynLib(CNVrdpermutation)
 exportPattern("^[[:alpha:]]+")

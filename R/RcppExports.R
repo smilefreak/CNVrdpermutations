@@ -1,7 +1,7 @@
 #Exports functions we use in permutation MPI
 
 getSubRegionMatrixFromSegmentScores <- function(segmentResults, window_size, st, en) {
-    .Call('generateSubRegions_getSubRegionMatrixFromSegmentScores', PACKAGE = 'generateSubRegions', segmentResults, window_size, st, en)
+    .Call('CNVrdpermutations_getSubRegionMatrixFromSegmentScores', PACKAGE = 'CNVrdpermutations', segmentResults, window_size, st, en)
 }
 
 permuteChromosome <- function(task){

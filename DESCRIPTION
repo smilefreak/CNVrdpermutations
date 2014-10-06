@@ -1,7 +1,7 @@
-Package: CNVRd2 permutation
+Package: CNVrdpermutation
 Type: Package
-Title: CNVRd2 permutation  
-Version: 1.0
+Title: CNVrd permutation  
+Version: 0.1
 Date: 2014-06-28
 Author: James Boocock <smilefreak@gmx.com>
 Maintainer: James Boocock <smilefreak@gmx.com>
