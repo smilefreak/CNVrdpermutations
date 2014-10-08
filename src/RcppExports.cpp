@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // colSd
 NumericVector colSd(NumericMatrix subRegionMatrix);
-RcppExport SEXP CNVrdpermutation_colSd(SEXP subRegionMatrixSEXP) {
+RcppExport SEXP CNVrdpermutations_colSd(SEXP subRegionMatrixSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -22,7 +22,7 @@ END_RCPP
 }
 // getSubRegionMatrixFromSegmentScores
 NumericMatrix getSubRegionMatrixFromSegmentScores(List segmentResults, int window_size, int st, int en);
-RcppExport SEXP CNVrdpermutation_getSubRegionMatrixFromSegmentScores(SEXP segmentResultsSEXP, SEXP window_sizeSEXP, SEXP stSEXP, SEXP enSEXP) {
+RcppExport SEXP CNVrdpermutations_getSubRegionMatrixFromSegmentScores(SEXP segmentResultsSEXP, SEXP window_sizeSEXP, SEXP stSEXP, SEXP enSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -40,7 +40,7 @@ END_RCPP
 }
 // stretchToWindowSize
 NumericMatrix stretchToWindowSize(NumericMatrix subRegionMatrix, NumericVector start, NumericVector end, int window_size);
-RcppExport SEXP CNVrdpermutation_stretchToWindowSize(SEXP subRegionMatrixSEXP, SEXP startSEXP, SEXP endSEXP, SEXP window_sizeSEXP) {
+RcppExport SEXP CNVrdpermutations_stretchToWindowSize(SEXP subRegionMatrixSEXP, SEXP startSEXP, SEXP endSEXP, SEXP window_sizeSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {

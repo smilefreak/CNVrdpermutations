@@ -1,6 +1,6 @@
-Package: CNVrdpermutation
+Package: CNVrdpermutations
 Type: Package
-Title: CNVrd permutation  
+Title: CNVrd permutations
 Version: 0.1
 Date: 2014-06-28
 Author: James Boocock <smilefreak@gmx.com>

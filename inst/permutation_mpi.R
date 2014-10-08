@@ -1,11 +1,10 @@
 library(Rmpi)
-#library(CNVrd2)
 library(Rcpp)
 args  <- commandArgs(T)
 load('/home/james.boocock/disease_genes_project/apple_segment.RData')
 load('/home/james.boocock/disease_genes_project/cnvrd2_objects_nesi.Rdata')
 write.table(date(),file="start.txt")
-mpi.spawn.Rslaves(nslaves=200)
+mpi.spawn.Rslaves(nslaves=1)
    # In case R exits unexpectedly, have it automatically clean up
     # resources taken up by Rmpi (slaves, memory, etc...)
 #permuteChromosome2 <- function(task){
@@ -26,6 +25,7 @@ mpi.spawn.Rslaves(nslaves=200)
 #    st  <- task[3]
 #    en  <- task[4]
 #    windows  <- task[5]
+#
 #    sample_list  <- sample_list_per_chromosome[[chr]]
 #    result <- lapply(sample_list,permuteSample,st=st,windows=windows)
 #    result <- list(segmentResults=result)
@@ -37,8 +37,8 @@ names(cnvrd2_objects)  <- lapply(cnvrd2_objects,function(x){ x@chr})
 require(generateSubRegions)
 
 run_slave_permutation <- function(){
-    require(CNVrd2)
-    require(generateSubRegions)
+    #require(CNVrd2)
+    require(CNVrdpermutations)
 #    sourceCpp("/home/james.boocock/CNVrd2MultiCore/Cppextensions/polyMorphicStretch.cpp")
     task  <- mpi.recv.Robj(mpi.any.source(),mpi.any.tag())
     task_info  <- mpi.get.sourcetag()
@@ -75,23 +75,26 @@ run_slave_permutation <- function(){
 samples=rownames(segment_results[[1]]$segmentationScores)
 sample_list_per_chromosome  <- list()
 chromosomes = c(10:17,1:9)
+
 for( i in 1:length(segment_results)){
     sample_list_per_chromosome[[i]]=lapply(samples, function(x) segment_results[[i]]$segmentResults[[which(rownames(segment_results[[i]]$segmentationScores)==as.character(x))]])
+    print(sessionInfo())
 }
 
-mpi.bcast.Robj2slave(permuteSample)
+#mpi.bcast.Robj2slave(permuteSample)
 #mpi.bcast.Robj2slave(segment_results)
 #mpi.bcast.Robj2slave(permuteChromosome)
-mpi.bcast.Robj2slave(permuteChromosome2)
+#mpi.bcast.Robj2slave(permuteChromosome2)
 mpi.bcast.Robj2slave(run_slave_permutation)
 mpi.bcast.Robj2slave(sample_list_per_chromosome)
 mpi.bcast.Robj2slave(cnvrd2_objects)
-permutations <- 10000
+permutations <- 10
+chrs = c('chr10','chr11','chr12','chr13','chr14','chr15','chr16','chr17','chr1','chr2','chr3','chr4','chr5','chr6','chr7','chr8','chr9')
 tasks <- list()
 for(j in 1:length(sample_list_per_chromosome)){
     start = ((j*permutations) %/% permutations -1) * permutations
     for(i in 1:permutations){
-        tasks[[start + i]] <- c(start + i,which(cnvrd2_objects[[j]]@chr==names(cnvrd2_objects)),cnvrd2_objects[[j]]@st,cnvrd2_objects[[j]]@en,cnvrd2_objects[[j]]@windows)
+        tasks[[start + i]] <- c(start + i,which(cnvrd2_objects[[j]]@chr==chrs),cnvrd2_objects[[j]]@st,cnvrd2_objects[[j]]@en,cnvrd2_objects[[j]]@windows)
     }
 }
 

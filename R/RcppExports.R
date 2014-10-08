@@ -2,14 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 colSd <- function(subRegionMatrix) {
-    .Call('CNVrdpermutation_colSd', PACKAGE = 'CNVrdpermutation', subRegionMatrix)
+    .Call('CNVrdpermutations_colSd', PACKAGE = 'CNVrdpermutations', subRegionMatrix)
 }
 
 getSubRegionMatrixFromSegmentScores <- function(segmentResults, window_size, st, en) {
-    .Call('CNVrdpermutation_getSubRegionMatrixFromSegmentScores', PACKAGE = 'CNVrdpermutation', segmentResults, window_size, st, en)
+    .Call('CNVrdpermutations_getSubRegionMatrixFromSegmentScores', PACKAGE = 'CNVrdpermutations', segmentResults, window_size, st, en)
 }
 
 stretchToWindowSize <- function(subRegionMatrix, start, end, window_size) {
-    .Call('CNVrdpermutation_stretchToWindowSize', PACKAGE = 'CNVrdpermutation', subRegionMatrix, start, end, window_size)
+    .Call('CNVrdpermutations_stretchToWindowSize', PACKAGE = 'CNVrdpermutations', subRegionMatrix, start, end, window_size)
 }
 
