@@ -1,4 +1,3 @@
-
 permuteChromosome <- function(task){
     chr  <- task[2]
     i <- task[1]

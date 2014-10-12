@@ -5,6 +5,7 @@ permuteSample <- function(segmentationResultsForSample,st,windows){
         reorder_ranks=sample(ranks,replace=F)
         segmentationResultsForSample = segmentationResultsForSample[reorder_ranks,]
         # Improve speed of this horrible for loop lol
+
         for( i in 1:nrow(segmentationResultsForSample)){
             dif = segmentationResultsForSample[i,4] - segmentationResultsForSample[i,3] + windows
             segmentationResultsForSample[i,3] = st

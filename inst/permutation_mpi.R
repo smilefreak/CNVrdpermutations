@@ -4,7 +4,7 @@ args  <- commandArgs(T)
 load('/home/james.boocock/disease_genes_project/apple_segment.RData')
 load('/home/james.boocock/disease_genes_project/cnvrd2_objects_nesi.Rdata')
 write.table(date(),file="start.txt")
-mpi.spawn.Rslaves(nslaves=1)
+mpi.spawn.Rslaves(nslaves=100)
    # In case R exits unexpectedly, have it automatically clean up
     # resources taken up by Rmpi (slaves, memory, etc...)
 #permuteChromosome2 <- function(task){
@@ -78,17 +78,16 @@ chromosomes = c(10:17,1:9)
 
 for( i in 1:length(segment_results)){
     sample_list_per_chromosome[[i]]=lapply(samples, function(x) segment_results[[i]]$segmentResults[[which(rownames(segment_results[[i]]$segmentationScores)==as.character(x))]])
-    print(sessionInfo())
 }
 
 #mpi.bcast.Robj2slave(permuteSample)
-#mpi.bcast.Robj2slave(segment_results)
 #mpi.bcast.Robj2slave(permuteChromosome)
 #mpi.bcast.Robj2slave(permuteChromosome2)
-mpi.bcast.Robj2slave(run_slave_permutation)
-mpi.bcast.Robj2slave(sample_list_per_chromosome)
+#mpi.bcast.Robj2slave(segment_results)
 mpi.bcast.Robj2slave(cnvrd2_objects)
-permutations <- 10
+mpi.bcast.Robj2slave(sample_list_per_chromosome)
+mpi.bcast.Robj2slave(run_slave_permutation)
+permutations <- 10000
 chrs = c('chr10','chr11','chr12','chr13','chr14','chr15','chr16','chr17','chr1','chr2','chr3','chr4','chr5','chr6','chr7','chr8','chr9')
 tasks <- list()
 for(j in 1:length(sample_list_per_chromosome)){
@@ -104,6 +103,7 @@ mpi.bcast.cmd(run_slave_permutation())
 n_slaves  <- mpi.comm.size()-1
 task_assignees <- rep(1:n_slaves, length=length(tasks))
 for (i in 1:length(tasks)){
+    print(i)
     slave_id <- task_assignees[i]
     mpi.send.Robj(tasks[[i]],slave_id,1)    
 }
@@ -115,8 +115,7 @@ file_count = 1
 for(i in 1:length(tasks)){
     print(i)
     messages  <-  mpi.recv.Robj(mpi.any.source(),mpi.any.tag())
-    result_list[[j]]  <- messages
-    if ( j > 100){
+    if ( j == 100){
         save(result_list,file=paste0('results',file_count,'.Rdata'))
         j = 1
         file_count = file_count + 1
