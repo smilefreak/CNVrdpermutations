@@ -4,7 +4,7 @@ args  <- commandArgs(T)
 load('/home/james.boocock/disease_genes_project/apple_segment.RData')
 load('/home/james.boocock/disease_genes_project/cnvrd2_objects_nesi.Rdata')
 write.table(date(),file="start.txt")
-mpi.spawn.Rslaves(nslaves=100)
+mpi.spawn.Rslaves(nslaves=49)
    # In case R exits unexpectedly, have it automatically clean up
     # resources taken up by Rmpi (slaves, memory, etc...)
 #permuteChromosome2 <- function(task){
@@ -38,7 +38,7 @@ require(generateSubRegions)
 
 run_slave_permutation <- function(){
     #require(CNVrd2)
-    require(CNVrdpermutations)
+    library(CNVrdpermutations)
 #    sourceCpp("/home/james.boocock/CNVrd2MultiCore/Cppextensions/polyMorphicStretch.cpp")
     task  <- mpi.recv.Robj(mpi.any.source(),mpi.any.tag())
     task_info  <- mpi.get.sourcetag()
@@ -83,11 +83,11 @@ for( i in 1:length(segment_results)){
 #mpi.bcast.Robj2slave(permuteSample)
 #mpi.bcast.Robj2slave(permuteChromosome)
 #mpi.bcast.Robj2slave(permuteChromosome2)
-#mpi.bcast.Robj2slave(segment_results)
+mpi.bcast.Robj2slave(segment_results)
 mpi.bcast.Robj2slave(cnvrd2_objects)
 mpi.bcast.Robj2slave(sample_list_per_chromosome)
 mpi.bcast.Robj2slave(run_slave_permutation)
-permutations <- 10000
+permutations <- 10
 chrs = c('chr10','chr11','chr12','chr13','chr14','chr15','chr16','chr17','chr1','chr2','chr3','chr4','chr5','chr6','chr7','chr8','chr9')
 tasks <- list()
 for(j in 1:length(sample_list_per_chromosome)){
@@ -96,6 +96,8 @@ for(j in 1:length(sample_list_per_chromosome)){
         tasks[[start + i]] <- c(start + i,which(cnvrd2_objects[[j]]@chr==chrs),cnvrd2_objects[[j]]@st,cnvrd2_objects[[j]]@en,cnvrd2_objects[[j]]@windows)
     }
 }
+## TEMPORARY! 
+# create tasks that work correctly
 
 # Temp shorten task list
 #tasks  <- tasks[1:5]
@@ -115,8 +117,9 @@ file_count = 1
 for(i in 1:length(tasks)){
     print(i)
     messages  <-  mpi.recv.Robj(mpi.any.source(),mpi.any.tag())
-    if ( j == 100){
+    if ( j == 101){
         save(result_list,file=paste0('results',file_count,'.Rdata'))
+        result_list=list()
         j = 1
         file_count = file_count + 1
     }
