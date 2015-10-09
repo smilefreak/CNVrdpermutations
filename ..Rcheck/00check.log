@@ -1,0 +1,60 @@
+* using log directory ‘/Volumes/BiochemXsan/scratch/merrimanlab/james/CNVrdpermutations/..Rcheck’
+* using R version 3.2.1 (2015-06-18)
+* using platform: x86_64-redhat-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘./DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘CNVrdpermutations’ version ‘0.1’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... WARNING
+Subdirectory ‘CNVrdpermutations/src’ contains apparent object files/libraries
+  CNVrdpermutations.so RcppExports.o colSd.o permute_segments.o
+  polyMorphicStretch.o segment_extension.o
+Object files/libraries should not be included in a source package.
+
+In addition to the above warning(s), found the following notes:
+
+Found the following apparent object files/libraries:
+  inst/perm_mpi.sl
+Object files/libraries should not be included in a source package.
+* checking if there is a namespace ... OK
+* checking for executable files ... WARNING
+Found the following executable files:
+  .git/objects/4e/a1f723adc54e5c3909c7b14faef14fe50b71d1
+  .git/objects/67/bb8abd73f9539fa2cfc6f0aefb7e50670d5a5f
+  .git/objects/71/50a8df5d15e76b39fd75c4a8f2fae3d650a93b
+  .git/objects/79/60bbedd30bc6175de4f1d93119ef5934e3760f
+  .git/objects/84/38c47d5c12350f5993afc65fb90809c281817a
+  .git/objects/8c/8a87f1f49aa256a7c626562699827258fc1be9
+  .git/objects/a7/46f76b5c35295dc10d8757a17e6b12ad10b7ba
+  .git/objects/b2/61dabf7734f9a2edc250dbcd0486beeaa3a9dd
+  .git/objects/be/0219430cb7ab0c0f5741af5dd4f5d80d72c1ce
+  .git/objects/cc/a47d68ed12ba102569b642bd0a7e0753d9040d
+  .git/objects/cc/d09c48dc764867edfa830073e9f1819f3f94f5
+  .git/objects/dc/31e2653d2bc41dc33be9e8357847d469ddaf76
+  .git/objects/e5/64abd8af32976d1279c1b822fb9aa24555dfb4
+Source packages should not contain undeclared executable files.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .Rhistory
+  .gitignore
+  R/.permuteChromosome.R.swp
+  inst/.permutation_mpi.R.swp
+  src/.gitignore
+  src/.polyMorphicStretch.cpp.swo
+  ..Rcheck
+  .git
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘CNVrdpermutations’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: /Volumes/BiochemXsan/scratch/merrimanlab/james/CNVrdpermutations/man/generateSubRegions-package.Rd:31: All text must be in a section
+  Warning: /Volumes/BiochemXsan/scratch/merrimanlab/james/CNVrdpermutations/man/generateSubRegions-package.Rd:32: All text must be in a section
+See ‘/Volumes/BiochemXsan/scratch/merrimanlab/james/CNVrdpermutations/..Rcheck/00install.out’ for details.
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ...

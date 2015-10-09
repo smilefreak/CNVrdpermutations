@@ -5,11 +5,19 @@ colSd <- function(subRegionMatrix) {
     .Call('CNVrdpermutations_colSd', PACKAGE = 'CNVrdpermutations', subRegionMatrix)
 }
 
+permute_segmentation_results <- function(segmentResults, window_size, st, en, nperm) {
+    .Call('CNVrdpermutations_permute_segmentation_results', PACKAGE = 'CNVrdpermutations', segmentResults, window_size, st, en, nperm)
+}
+
 getSubRegionMatrixFromSegmentScores <- function(segmentResults, window_size, st, en) {
     .Call('CNVrdpermutations_getSubRegionMatrixFromSegmentScores', PACKAGE = 'CNVrdpermutations', segmentResults, window_size, st, en)
 }
 
 stretchToWindowSize <- function(subRegionMatrix, start, end, window_size) {
     .Call('CNVrdpermutations_stretchToWindowSize', PACKAGE = 'CNVrdpermutations', subRegionMatrix, start, end, window_size)
+}
+
+get_fdr <- function(permuted_data, threshold) {
+    .Call('CNVrdpermutations_get_fdr', PACKAGE = 'CNVrdpermutations', permuted_data, threshold)
 }
 

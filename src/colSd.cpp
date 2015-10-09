@@ -1,7 +1,4 @@
-#include <math.h>
-#include <Rcpp.h>
-
-using namespace Rcpp;
+#include "colSd.h"
 /**
  * Function takes a matrix and returns the standard deviation for each
  * col.

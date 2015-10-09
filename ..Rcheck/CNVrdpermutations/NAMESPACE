@@ -1,0 +1,2 @@
+useDynLib(CNVrdpermutations)
+exportPattern("^[[:alpha:]]+")

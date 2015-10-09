@@ -1,0 +1,15 @@
+* installing *source* package ‘CNVrdpermutations’ ...
+** libs
+make: Nothing to be done for `all'.
+make: `symbols.rds' is up to date.
+installing to /Volumes/BiochemXsan/scratch/merrimanlab/james/CNVrdpermutations/..Rcheck/CNVrdpermutations/libs
+** R
+** inst
+** preparing package for lazy loading
+** help
+Warning: /Volumes/BiochemXsan/scratch/merrimanlab/james/CNVrdpermutations/man/generateSubRegions-package.Rd:31: All text must be in a section
+Warning: /Volumes/BiochemXsan/scratch/merrimanlab/james/CNVrdpermutations/man/generateSubRegions-package.Rd:32: All text must be in a section
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (CNVrdpermutations)

@@ -9,4 +9,4 @@ Description: Contains some functions to perform a permutation test for segmentat
 License: MIT
 Depends: Rcpp (>= 0.10.3)
 LinkingTo: Rcpp
-Suggests: testthat
+Built: R 3.2.1; x86_64-redhat-linux-gnu; 2015-10-07 05:48:11 UTC; unix

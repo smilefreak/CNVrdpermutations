@@ -1,7 +1,5 @@
-#include <Rcpp.h>
-
+#include "polyMorphicStretch.h"
 using namespace Rcpp;
-
 /**
  * Function stretches a matrix to the window size from a segment_scores
  * list.

@@ -9,50 +9,65 @@ using namespace Rcpp;
 NumericVector colSd(NumericMatrix subRegionMatrix);
 RcppExport SEXP CNVrdpermutations_colSd(SEXP subRegionMatrixSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericMatrix >::type subRegionMatrix(subRegionMatrixSEXP );
-        NumericVector __result = colSd(subRegionMatrix);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type subRegionMatrix(subRegionMatrixSEXP);
+    __result = Rcpp::wrap(colSd(subRegionMatrix));
+    return __result;
+END_RCPP
+}
+// permute_segmentation_results
+NumericMatrix permute_segmentation_results(List segmentResults, int window_size, int st, int en, int nperm);
+RcppExport SEXP CNVrdpermutations_permute_segmentation_results(SEXP segmentResultsSEXP, SEXP window_sizeSEXP, SEXP stSEXP, SEXP enSEXP, SEXP npermSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type segmentResults(segmentResultsSEXP);
+    Rcpp::traits::input_parameter< int >::type window_size(window_sizeSEXP);
+    Rcpp::traits::input_parameter< int >::type st(stSEXP);
+    Rcpp::traits::input_parameter< int >::type en(enSEXP);
+    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
+    __result = Rcpp::wrap(permute_segmentation_results(segmentResults, window_size, st, en, nperm));
+    return __result;
 END_RCPP
 }
 // getSubRegionMatrixFromSegmentScores
 NumericMatrix getSubRegionMatrixFromSegmentScores(List segmentResults, int window_size, int st, int en);
 RcppExport SEXP CNVrdpermutations_getSubRegionMatrixFromSegmentScores(SEXP segmentResultsSEXP, SEXP window_sizeSEXP, SEXP stSEXP, SEXP enSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< List >::type segmentResults(segmentResultsSEXP );
-        Rcpp::traits::input_parameter< int >::type window_size(window_sizeSEXP );
-        Rcpp::traits::input_parameter< int >::type st(stSEXP );
-        Rcpp::traits::input_parameter< int >::type en(enSEXP );
-        NumericMatrix __result = getSubRegionMatrixFromSegmentScores(segmentResults, window_size, st, en);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type segmentResults(segmentResultsSEXP);
+    Rcpp::traits::input_parameter< int >::type window_size(window_sizeSEXP);
+    Rcpp::traits::input_parameter< int >::type st(stSEXP);
+    Rcpp::traits::input_parameter< int >::type en(enSEXP);
+    __result = Rcpp::wrap(getSubRegionMatrixFromSegmentScores(segmentResults, window_size, st, en));
+    return __result;
 END_RCPP
 }
 // stretchToWindowSize
 NumericMatrix stretchToWindowSize(NumericMatrix subRegionMatrix, NumericVector start, NumericVector end, int window_size);
 RcppExport SEXP CNVrdpermutations_stretchToWindowSize(SEXP subRegionMatrixSEXP, SEXP startSEXP, SEXP endSEXP, SEXP window_sizeSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericMatrix >::type subRegionMatrix(subRegionMatrixSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type start(startSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type end(endSEXP );
-        Rcpp::traits::input_parameter< int >::type window_size(window_sizeSEXP );
-        NumericMatrix __result = stretchToWindowSize(subRegionMatrix, start, end, window_size);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type subRegionMatrix(subRegionMatrixSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type start(startSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type end(endSEXP);
+    Rcpp::traits::input_parameter< int >::type window_size(window_sizeSEXP);
+    __result = Rcpp::wrap(stretchToWindowSize(subRegionMatrix, start, end, window_size));
+    return __result;
+END_RCPP
+}
+// get_fdr
+NumericVector get_fdr(NumericMatrix permuted_data, double threshold);
+RcppExport SEXP CNVrdpermutations_get_fdr(SEXP permuted_dataSEXP, SEXP thresholdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type permuted_data(permuted_dataSEXP);
+    Rcpp::traits::input_parameter< double >::type threshold(thresholdSEXP);
+    __result = Rcpp::wrap(get_fdr(permuted_data, threshold));
+    return __result;
 END_RCPP
 }
