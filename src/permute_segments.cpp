@@ -26,8 +26,12 @@ void fisher_yates(int segment_length, int ** width_p, double ** mean_p, int * le
         int row_num = lengths[i];
         for(int segment_index = (row_num - 1); segment_index > 0; segment_index--){
             j = rand() % (segment_index+1);
+            double temp_double = widths[i][j];
             widths[i][j] = widths[i][segment_index];
+            widths[i][segment_index] = temp_double; 
+            temp_double = means[i][j];
             means[i][j] = means[i][segment_index]; 
+            means[i][segment_index] = temp_double;
             //segmentResults[j] = segmentResults[segment_index];
         }
     }
@@ -58,9 +62,11 @@ double * get_standard_deviation(double **mean_matrix, int list_length, int mat_s
         int n = 0;
         double delta;
         double x;
+    //    Rcout << "new column \n"; 
         for(int j=0; j < list_length; j++){
             n++;
             x = mean_matrix[j][i];
+      //      Rcout << x << "\n";
             delta = x - mean;
             mean = mean + delta/n;
             M2 = M2 + delta*(x-mean);
@@ -86,7 +92,8 @@ void get_permuted_matrix(int st, int en, int window_size, int *lengths, double *
         // standard devs is used for temp storage
         double * sample_row =  get_sample_row(means[i], widths[i], en, lengths[i], standard_devs);
         for(int j = 0; j < mat_size; j++){
-            mean_matrix[i][j] = sample_row[i];
+            //Rcout << sample_row[j] << "\n";
+            mean_matrix[i][j] = sample_row[j];
         }
     }
     get_standard_deviation(mean_matrix, sample_number, mat_size, standard_devs);
@@ -101,38 +108,35 @@ NumericMatrix permute_segmentation_results(List segmentResults, int window_size,
     int list_length = segmentResults.size();
     int mat_size = en/1000;
     NumericMatrix permuted_matrix(nperm, mat_size);  
-    NumericVector starts;
-    NumericVector ends;
-    NumericVector lengths_vec;
-    NumericVector seg_means;
-    // hopefully this should extract everythin we need for further processing
-    DataFrame temp_df;
-    int **widths = new int*[list_length];
-    double **means =new double*[list_length];
-    int *lengths = new int[list_length];
-    for(int i = 0; i < list_length; i++){
-        temp_df = as<DataFrame>(segmentResults[i]);
-        starts = temp_df["loc.start"];
-        ends = temp_df["loc.end"];
-        lengths_vec = ends - starts;
-        seg_means = temp_df["seg.mean"];
-        //Rcout << "Can We extract a data.frame from a list" << "\n";
-        int row_num = seg_means.size();
-        widths[i] = new int[row_num];
-        means[i] = new double[row_num];
-        lengths[i] = row_num;
-        //Rcout << "Row nums : " << row_num <<"\n";
-        for(int k = 0; k < row_num; k++){
-            widths[i][k] = (int) lengths_vec[k];
-            means[i][k] = seg_means[k];
-            //Rcout << widths[i][k] << "\n";  
-        }
-    }
     R_CStackLimit=(uintptr_t)-1;
     omp_set_num_threads(10);
     setenv("OMP_STACKSIZE","XM",100000);
-#pragma omp parallel
-    {
+    srand (time(NULL));
+        NumericVector starts;
+        NumericVector ends;
+        NumericVector lengths_vec;
+        NumericVector seg_means;
+        // hopefully this should extract everythin we need for further processing
+        DataFrame temp_df;
+        int **widths = new int*[list_length];
+        double **means =new double*[list_length];
+        int *lengths = new int[list_length];
+        for(int i = 0; i < list_length; i++){
+            temp_df = as<DataFrame>(segmentResults[i]);
+            starts = temp_df["loc.start"];
+            ends = temp_df["loc.end"];
+            lengths_vec = ends - starts;
+            seg_means = temp_df["seg.mean"];
+            int row_num = seg_means.size();
+            widths[i] = new int[row_num];
+            means[i] = new double[row_num];
+            lengths[i] = row_num;
+            //Rcout << "Row nums : " << row_num <<"\n";
+            for(int k = 0; k < row_num; k++){
+                widths[i][k] = (int) lengths_vec[k];
+                means[i][k] = seg_means[k];
+            }
+        }
         double *standard_devs = 0;
         double **mean_matrix = 0;
         standard_devs = new double[mat_size];
@@ -140,7 +144,7 @@ NumericMatrix permute_segmentation_results(List segmentResults, int window_size,
         for (int i = 0; i < list_length; i++){
             mean_matrix[i]=new double[mat_size];
         } 
-       #pragma omp for
+        Rcout << "Where is failure occrrung \n";
         for(int i = 0; i < nperm; i++){
             Rcout << "Permutation = " << i + 1 << "\n";
             //segmentResults = fisher_yates(segmentResults)
@@ -151,7 +155,6 @@ NumericMatrix permute_segmentation_results(List segmentResults, int window_size,
                 permuted_matrix(i,j) = standard_devs[j];
             } 
         }
-    }
     return(permuted_matrix);
 }
 
